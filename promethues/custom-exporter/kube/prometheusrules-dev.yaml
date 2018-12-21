@@ -1,0 +1,17 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    app: prometheus
+    author: wzt3309
+     # you need to look into your prometheus crd and match the serviceMonitorSelector 
+     # see https://github.com/coreos/prometheus-operator/issues/890
+    prometheus: kube-prometheus
+  name: kube-prometheus-exporter-demo
+  namespace: monitoring
+spec:
+  groups:
+  - name: demo.rules
+    rules:
+    - expr: sum(go_gc_duration_seconds)
+      record: go:gc:duration:sum

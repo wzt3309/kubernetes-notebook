@@ -1,0 +1,10 @@
+version: '2.1'
+
+services:
+  prometheus-exporter-demo:
+    image: prometheus-exporter-demo
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+        - 18080:8080

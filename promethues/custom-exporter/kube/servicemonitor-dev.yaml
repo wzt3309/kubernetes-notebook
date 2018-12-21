@@ -1,0 +1,22 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app: exporter-demo
+    author: wzt3309
+    # you need to look into your prometheus crd and match the serviceMonitorSelector
+    # see https://github.com/coreos/prometheus-operator/issues/890 
+    prometheus: kube-prometheus
+  name: kube-prometheus-exporter-demo
+  namespace: monitoring
+spec:
+  endpoints:
+  - honorLabels: true
+    interval: 15s
+    port: demo-metrics
+  namespaceSelector:
+    matchNames:
+    - monitoring
+  selector:
+    matchLabels:
+      app: exporter-demo

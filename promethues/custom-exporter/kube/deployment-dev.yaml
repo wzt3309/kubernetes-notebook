@@ -1,0 +1,36 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: exporter-demo
+    profile: dev
+    author: wzt3309
+  name: kube-prometheus-exporter-demo-dev
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kube-prometheus-exporter-demo
+      profile: dev
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: kube-prometheus-exporter-demo
+        profile: dev
+        author: wzt3309
+    spec:
+      containers:
+      - image: wzt3309/prometheus-exporter-demo
+        imagePullPolicy: IfNotPresent
+        name: exporter-demo-dev
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+
+

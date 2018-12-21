@@ -1,0 +1,8 @@
+version: '2.1'
+
+services:
+  prometheus-exporter-demo:
+    image: prometheus-exporter-demo
+    build: .
+    ports:
+      - 18080:8080

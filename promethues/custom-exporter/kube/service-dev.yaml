@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: exporter-demo
+    author: wzt3309
+  name: kube-prometheus-exporter-demo
+  namespace: monitoring
+spec:
+  ports:
+  - name: demo-metrics
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: kube-prometheus-exporter-demo
+    profile: dev
+    author: wzt3309
+  sessionAffinity: None
+  # easy to access from local, for debug
+  type: NodePort
