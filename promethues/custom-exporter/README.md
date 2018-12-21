@@ -3,14 +3,20 @@
 作为自定义的监控
 
 ## 使用
+### 编译法
 代码很简单，只有一个main.go文件，通过makefile（做这个实验才学的，写的很初级，希望能帮我完善一下，谢谢）直接进行编译，注意本次使用使用了三台机器，我所在的k8s-master，以及k8s-node1，k8s-node2，并且这三者采用ssh的免密码通信。k8s-master作为编译机器，但不需要装go环境，我是通过容器来进行编译的，具体可参考我的`Dockerfile`
 
-我通过在k8s-master机器上执行`make delive VERSION=0.0.1 TAG_LATEST=1` 来构建镜像，并且将本地镜像打包成`tar`并使用`scp`拷贝到k8s-node1，k8s-node2上，然后使用`docker load < xxx.tar`将镜像直接装到两台机器上
-我这样做是不想污染我的docker hub仓库，毕竟这只是一个实验而已。
+我通过在k8s-master机器上执行`make delive VERSION=0.0.1 TAG_LATEST=1` 来构建镜像，并且将本地镜像打包成`tar`并使用`scp`拷贝到k8s-node1，k8s-node2上，然后使用`docker load < xxx.tar`将镜像直接装到两台机器上，毕竟这只是一个实验而已，可能会觉得没必要push到hub里。
 
 将Makefile中的有关文件拷贝复制的部分，按照你自己需求重新修改一下，比如修改ssh的地址等，就可以执行了（makefile没写好的缘故，不然应该直接就可以弄点变量上手了），原理就是上面的原理。
 
 最后，到`kube`这个目录下 直接执行所有的yaml文件就可以了。
+
+### 直接使用
+我做了一个0.0.1版本的在我的docker hub仓库
+```
+docker pull wzt3309/prometheus-exporter-demo
+```
 
 ## 原理
 
